@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bipra Biswas | Salesforce Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --primary: #0ea5e9; /* Salesforce Blue-ish */
+            --secondary: #64748b;
+            --text-light: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #38bdf8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            background: radial-gradient(circle at top right, #1e293b 0%, transparent 40%);
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .typewriter {
+            font-size: 1.8rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            height: 2rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .stats-bar {
+            margin-top: 3rem;
+            display: flex;
+            gap: 3rem;
+            padding: 1rem 2rem;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .stat h3 { color: var(--accent); font-size: 1.5rem; }
+        .stat p { font-size: 0.9rem; color: var(--text-dim); }
+
+        /* --- SECTIONS GENERAL --- */
+        section {
+            padding: 5rem 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-title span {
+            border-bottom: 3px solid var(--primary);
+        }
+
+        /* --- CERTIFICATIONS --- */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .cert-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* --- EXPERIENCE (TIMELINE) --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--secondary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+
+        .container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            right: -8px;
+            background-color: var(--bg-dark);
+            border: 2px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .left { left: 0; }
+        .right { left: 50%; }
+
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 18px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--bg-card);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent var(--bg-card);
+        }
+
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 18px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--bg-card);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent var(--bg-card) transparent transparent;
+        }
+
+        .right::after { left: -8px; }
+
+        .content {
+            padding: 20px 30px;
+            background-color: var(--bg-card);
+            position: relative;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .content h3 { color: var(--primary); margin-bottom: 5px; }
+        .content h4 { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 10px; }
+        .content ul { list-style: disc; padding-left: 20px; color: var(--text-dim); font-size: 0.9rem; }
+
+        /* --- SKILLS --- */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 1px solid var(--primary);
+        }
+
+        /* --- CONTACT --- */
+        .contact {
+            text-align: center;
+            background: var(--bg-card);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i { color: var(--primary); }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            background: var(--bg-dark);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- ANIMATION CLASSES --- */
+        .hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 600px) {
+            .timeline::after { left: 31px; }
+            .container { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .container::after { left: 21px; }
+            .left::before { right: auto; }
+            .right { left: 0%; }
+            .hero h1 { font-size: 2.5rem; }
+            .stats-bar { flex-direction: column; gap: 1rem; }
+            .contact-info { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Bipra.Dev</div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hidden">
+            <h2>Hello, I'm</h2>
+            <h1>Bipra <span>Biswas</span></h1>
+            <div class="typewriter" id="typewriter"></div>
+            
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-primary">Hire Me</a>
+                <a href="Resume-20_11.pdf" target="_blank" class="btn btn-outline">View Resume</a>
+            </div>
+
+            <div class="stats-bar">
+                <div class="stat">
+                    <h3>3.5+</h3>
+                    <p>Years Exp.</p>
+                </div>
+                <div class="stat">
+                    <h3>170</h3>
+                    <p>Trailhead Badges</p>
+                </div>
+                <div class="stat">
+                    <h3>5x</h3>
+                    <p>Salesforce Certified</p>
+                </div>
+                <div class="stat">
+                    <h3>Top Talent</h3>
+                    <p>Awarded by Persistent</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications">
+        <h2 class="section-title"><span>Certifications</span></h2>
+        <div class="certs-grid">
+            <div class="cert-card hidden">
+                <i class="fa-solid fa-code cert-icon"></i>
+                <h3>Platform Developer II</h3>
+                <p>Salesforce Certified</p>
+            </div>
+            <div class="cert-card hidden">
+                <i class="fa-brands fa-js cert-icon"></i>
+                <h3>JavaScript Developer I</h3>
+                <p>Salesforce Certified</p>
+            </div>
+            <div class="cert-card hidden">
+                <i class="fa-solid fa-cloud cert-icon"></i>
+                <h3>Data Cloud Consultant</h3>
+                <p>Salesforce Certified</p>
+            </div>
+            <div class="cert-card hidden">
+                <i class="fa-solid fa-robot cert-icon"></i>
+                <h3>AI Associate</h3>
+                <p>Salesforce Certified</p>
+            </div>
+            <div class="cert-card hidden">
+                <i class="fa-solid fa-laptop-code cert-icon"></i>
+                <h3>Platform Developer I</h3>
+                <p>Salesforce Certified</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title"><span>Technical Skills</span></h2>
+        <div class="skills-container hidden">
+            <div class="skill-tag">Apex</div>
+            <div class="skill-tag">LWC</div>
+            <div class="skill-tag">Salesforce Flows</div>
+            <div class="skill-tag">SOQL / SOSL</div>
+            <div class="skill-tag">Conga CPQ</div>
+            <div class="skill-tag">JavaScript</div>
+            <div class="skill-tag">Sales Cloud</div>
+            <div class="skill-tag">Service Cloud</div>
+            <div class="skill-tag">Git & VS Code</div>
+            <div class="skill-tag">Flowsum</div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title"><span>Experience</span></h2>
+        <div class="timeline">
+            
+            <div class="container left hidden">
+                <div class="content">
+                    <h3>Salesforce Developer</h3>
+                    <h4>Persistent Systems | July 2022 - Present</h4>
+                    <ul>
+                        <li>Working with a 15-member Agile team for a major American medical device client.</li>
+                        <li>Developed features using Apex, LWC, and Flows to optimize business processes.</li>
+                        <li>Converted legacy automation (Workflow Rules/Process Builders) to Flows, reducing technical debt.</li>
+                        <li>Optimized Apex test classes for high coverage and release quality.</li>
+                        <li>Provided L3 production support and root-cause analysis.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container right hidden">
+                <div class="content">
+                    <h3>Internship Trainee</h3>
+                    <h4>Persistent Systems | Feb 2022 - July 2022</h4>
+                    <ul>
+                        <li>Completed training in Java, Spring Boot, and Salesforce development.</li>
+                        <li>Built a Salesforce Travel Approval Lightning App (Capstone Project).</li>
+                        <li>Implemented secure authentication using Spring Security for internal portals.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container left hidden">
+                <div class="content">
+                    <h3>B.Tech (CSE)</h3>
+                    <h4>Dr. B.C Roy Engineering College | 2018 - 2022</h4>
+                    <p>DGPA: 8.94/10</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2 class="section-title"><span>Get In Touch</span></h2>
+        <p>Based in Kolkata, West Bengal</p>
+        <div class="contact-info hidden">
+            <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <a href="mailto:biprabiswasmail@gmail.com">biprabiswasmail@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <i class="fa-brands fa-linkedin"></i>
+                <a href="#">LinkedIn Profile</a>
+            </div>
+            <div class="contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <span>+91 6296021765</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Bipra Biswas. Built with simple HTML/CSS.</p>
+    </footer>
+
+    <script>
+        // --- TYPEWRITER EFFECT ---
+        const textElement = document.getElementById('typewriter');
+        const texts = ["Salesforce Developer", "Trailblazer", "LWC Specialist", "Cloud Consultant"];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+            
+            textElement.textContent = letter;
+            if (letter.length === currentText.length) {
+                setTimeout(() => {
+                    index = 0;
+                    count++;
+                    type();
+                }, 2000); // Wait before deleting
+            } else {
+                setTimeout(type, 100);
+            }
+        }());
+
+        // --- SCROLL ANIMATIONS ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>
